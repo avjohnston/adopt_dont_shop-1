@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get "/", to: "welcome#index"
 
+  get "/admins/applications", to: "admins#index"
+  get "/admins/applications/:id", to: "admins#show"
+
   get "/shelters", to: "shelters#index"
   get "/shelters/new", to: "shelters#new"
   get "/shelters/:id", to: "shelters#show"
@@ -15,7 +18,7 @@ Rails.application.routes.draw do
   # post '/applications/:id', to: 'applications#create'
   post '/applications', to: 'applications#create'
   patch '/applications/:id', to: 'applications#show'
-  patch '/applications/:id', to: 'applications#p_c_update'
+  # patch '/applications/:id', to: 'applications#p_c_update'
 
   get "/pets", to: "pets#index"
   get "/pets/:id", to: "pets#show"

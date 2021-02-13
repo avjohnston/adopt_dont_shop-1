@@ -4,7 +4,11 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-    if params[:pet_name]
+    if params[:description]
+      @application = Application.find(params[:id])
+      @application.update(status: "Pending", description: params[:description])
+      @application.save
+    elsif params[:pet_name]
       @pets = Pet.name_search(params[:pet_name])
       @application = Application.find(params[:id])
     elsif params[:pet_id]
