@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get "/", to: "welcome#index"
 
-  get "/admin/applications", to: "admins#index"
+  get "/admin/applications", to: "applications#admin_index"
   get "/admin/applications/:id", to: "applications#admin_show"
 
   get "/shelters", to: "shelters#index"

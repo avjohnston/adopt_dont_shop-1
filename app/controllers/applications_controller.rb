@@ -1,5 +1,5 @@
 class ApplicationsController < ApplicationController
-  def index
+  def admin_index
     @applications = Application.all
   end
 

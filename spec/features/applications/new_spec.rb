@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Application show page' do
+RSpec.describe 'Application new page' do
   it 'has fields to enter information' do
     visit 'applications/new'
 
@@ -15,5 +15,6 @@ RSpec.describe 'Application show page' do
     expect(page).to have_content("Zipcode")
     fill_in "zipcode", with: "80021"
     click_on "Submit Application"
+    expect(current_path).to_not eq("/applications/new")
   end
 end
