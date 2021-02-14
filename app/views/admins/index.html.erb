@@ -1,6 +1,6 @@
 <% @applications.each do |app| %>
   <section style="border:5px solid black;margin:5px;">
-    <p>Applicant: <a href="/admins/applications/<%= app.id %>"><%= app.name %></a><br>
+    <p>Applicant: <a href="/admin/applications/<%= app.id %>"><%= app.name %></a><br>
     Address: <%= app.street %>, <%= app.city %>, <%= app.state %> <%= app.zipcode %><br>
     Status: <%= app.status %><br>
   </section>

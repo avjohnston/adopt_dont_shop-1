@@ -21,6 +21,11 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def admin_show
+    @application = Application.find(params[:id])
+    @pets = Pet.find(@application.pets.pluck(:id))
+  end
+
   def new
 
   end

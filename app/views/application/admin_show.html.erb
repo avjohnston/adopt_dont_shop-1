@@ -1,0 +1,11 @@
+<p>Applicant: <%= @application.name %><br>
+Address: <%= @application.street %>, <%= @application.city %>, <%= @application.state %> <%= @application.zipcode %><br>
+
+Status: <%= @application.status %><br>
+Description: <%= @application.description %></p>
+
+Pets:<br>
+<% @application.pets.each do |pet| %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <%= button_to  "Approve This Pet", "/admin/applications/#{@application.id}", method: :get %>
+<% end %>
