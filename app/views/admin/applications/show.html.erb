@@ -1,0 +1,18 @@
+<p>Applicant: <%= @application.name %><br>
+Address: <%= @application.street %>, <%= @application.city %>, <%= @application.state %> <%= @application.zipcode %><br>
+
+Status: <%= @application.status %><br>
+Description: <%= @application.description %></p>
+
+Pets:<br>
+<% @application.pets.each do |pet| %>
+  <% if params[:rejected] == pet.id %>
+    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> has been rejected!</p><br>
+  <% elsif params[:approved] == pet.id %>
+    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> has been approved!</p><br>
+  <% else %>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    <%= button_to  "Approve This Pet", "/admin/applications/#{@application.id}", method: :patch, params: {approved: pet.id} %>
+    <%= button_to  "Reject This Pet", "/admin/applications/#{@application.id}", method: :get, params: {rejected: pet.id} %>
+  <% end %>
+<% end %>

@@ -1,45 +1,55 @@
 class ApplicationsController < ApplicationController
-  def admin_index
+
+  def index
     @applications = Application.all
   end
 
+  def new
+    @application = Application.new
+  end
+
   def show
-    if params[:description]
-      @application = Application.find(params[:id])
-      @application.update(status: "Pending", description: params[:description])
-      @application.save
-    elsif params[:pet_name]
+    if params[:pet_name]
       @pets = Pet.name_search(params[:pet_name])
       @application = Application.find(params[:id])
-    elsif params[:pet_id]
-      @pet = Pet.find(params[:pet_id])
-      @application = Application.find(params[:id])
-      @pet_application = PetApplication.create(pet: @pet, application: @application)
-      redirect_to "/applications/#{params[:id]}"
     else
       @application = Application.find(params[:id])
     end
   end
 
-  def admin_show
-    @application = Application.find(params[:id])
-    @pets = Pet.find(@application.pets.pluck(:id))
-  end
-
-  def new
-
-  end
-
   def create
-    application = Application.new({
-      name: params[:name],
-      street: params[:street],
-      city: params[:city],
-      state: params[:state],
-      zipcode: params[:zipcode],
-      status: "In Progress"
-      })
-    application.save
-    redirect_to "/applications/#{application.id}"
+    @application = Application.create(applications_params)
+    if @application.save
+      flash[:success] = "Your Application Has Been Saved!"
+      redirect_to "/applications/#{@application.id}"
+    else
+      flash[:error] = "Your Application Wasn't Saved!"
+      render :new
+    end
   end
+
+  def edit
+    @application = Application.find(params[:id])
+  end
+
+  def update
+    @application = Application.find(params[:id])
+    if params[:description]
+      @application.update_attributes(description: params[:description], status: "Pending")
+    else
+      @application.update(applications_params)
+    end
+    redirect_to "/applications/#{@application.id}"
+  end
+
+  def destroy
+    Application.destroy(params[:id])
+    redirect_to '/applications'
+  end
+
+  private
+  def applications_params
+    params.permit(:name, :street, :city, :state, :zipcode, :description, :status)
+  end
+
 end
