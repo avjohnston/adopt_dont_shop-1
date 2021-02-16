@@ -5,14 +5,14 @@ Status: <%= @application.status %><br>
 Description: <%= @application.description %></p>
 
 Pets:<br>
-<% @application.pets.each do |pet| %>
-  <% if params[:rejected] == pet.id %>
-    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> has been rejected!</p><br>
-  <% elsif params[:approved] == pet.id %>
-    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> has been approved!</p><br>
+<% @application.pet_applications.each do |pet_app| %>
+  <% if pet_app.approved == "false" %>
+    <p><%= link_to "#{pet_app.pet.name}", "/pets/#{pet_app.pet_id}" %> has been rejected!</p><br>
+  <% elsif pet_app.approved == "true" %>
+    <p><%= link_to "#{pet_app.pet.name}", "/pets/#{pet_app.pet_id}" %> has been approved!</p><br>
   <% else %>
-    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-    <%= button_to  "Approve This Pet", "/admin/applications/#{@application.id}", method: :patch, params: {approved: pet.id} %>
-    <%= button_to  "Reject This Pet", "/admin/applications/#{@application.id}", method: :get, params: {rejected: pet.id} %>
+    <%= link_to "#{pet_app.pet.name}", "/pets/#{pet_app.pet_id}" %>
+    <%= button_to  "Approve This Pet", "/admin/applications/#{@application.id}", method: :patch, params: {approved: pet_app.pet_id}, local: true %>
+    <%= button_to  "Reject This Pet", "/admin/applications/#{@application.id}", method: :patch, params: {rejected: pet_app.pet_id}, local: true %>
   <% end %>
 <% end %>

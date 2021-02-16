@@ -5,6 +5,6 @@ class PetApplication < ApplicationRecord
   after_initialize :default, unless: :persisted?
 
   def default
-    self.approved = false
+    self.approved = "none"
   end
 end
