@@ -1,9 +1,5 @@
 class ApplicationsController < ApplicationController
 
-  def index
-    @applications = Application.all
-  end
-
   def new
     @application = Application.new
   end
@@ -28,24 +24,24 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  def edit
-    @application = Application.find(params[:id])
-  end
-
   def update
     @application = Application.find(params[:id])
     if params[:description]
       @application.update_attributes(description: params[:description], status: "Pending")
-    else
-      @application.update(applications_params)
     end
     redirect_to "/applications/#{@application.id}"
   end
 
-  def destroy
-    Application.destroy(params[:id])
-    redirect_to '/applications'
-  end
+  # def destroy
+  #   Application.destroy(params[:id])
+  #   redirect_to '/applications'
+  # end
+  # def index
+  #   @applications = Application.all
+  # end
+  # def edit
+  #   @application = Application.find(params[:id])
+  # end
 
   private
   def applications_params

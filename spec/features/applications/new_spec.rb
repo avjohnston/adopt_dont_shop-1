@@ -17,4 +17,19 @@ RSpec.describe 'Application new page' do
     click_on "Submit Application"
     expect(current_path).to_not eq("/applications/new")
   end
+
+  it 'not entering a field wont let you submit' do
+    visit 'applications/new'
+
+    expect(page).to have_content("Name")
+    fill_in "name", with: "Human"
+    expect(page).to have_content("Street")
+    fill_in "street", with: "123 Main St"
+    expect(page).to have_content("City")
+    fill_in "city", with: "Denver"
+    expect(page).to have_content("State")
+    fill_in "state", with: "CO"
+    click_on "Submit Application"
+    expect(page).to have_content("Your Application Wasn't Saved")
+  end
 end

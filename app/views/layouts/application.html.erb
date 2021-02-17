@@ -14,9 +14,16 @@
         <p><%= link_to "Back to Home", "/" %>
           <%= link_to "Go to Shelters", "/shelters" %>
           <%= link_to 'Go to Pets', "/pets" %>
+          <%= link_to 'Admin Applications', "/admin/applications" %>
+          <%= link_to 'Admin Shelters', "/admin/shelters" %>
   </head><br>
 
   <body>
+
+    <% flash.each do |type, message| %>
+      <p><%= message %></p>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

@@ -1,5 +1,5 @@
 class Pet < ApplicationRecord
-  belongs_to :shelter, :dependent => :destroy
+  belongs_to :shelter
   has_many :pet_applications, :dependent => :destroy
   has_many :applications, through: :pet_applications
   validates_presence_of :name, :description, :approximate_age, :sex
@@ -12,5 +12,9 @@ class Pet < ApplicationRecord
 
   def self.name_search(name)
     where("name ILIKE ?", "%#{name}%")
+  end
+
+  def self.action_pets
+    joins(:pet_applications).where(pet_applications: {approved: "none"})
   end
 end
