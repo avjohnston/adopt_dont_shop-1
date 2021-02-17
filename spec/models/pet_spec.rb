@@ -41,5 +41,27 @@ describe Pet, type: :model do
       expect(pet.female?).to be(true)
       expect(pet.male?).to be(false)
     end
+
+    it 'can name search' do
+      shelter = Shelter.create!(name: 'Pet Rescue', address: '123 Adoption Ln.', city: 'Denver', state: 'CO', zip: '80222')
+      pet = shelter.pets.create!(sex: :female, name: "Fluffy", approximate_age: 3, description: 'super cute')
+
+      expect(Pet.name_search('fluf')).to eq([pet])
+      expect(Pet.name_search('FluFfY')).to eq([pet])
+      expect(Pet.name_search('fy')).to eq([pet])
+      expect(Pet.name_search('dog')).to eq([])
+    end
+
+    it 'can find action pets' do
+      shelter = Shelter.create!(name: 'Pet Rescue', address: '123 Adoption Ln.', city: 'Denver', state: 'CO', zip: '80222')
+      pet = shelter.pets.create!(sex: :female, name: "Fluffy", approximate_age: 3, description: 'super cute')
+      pet2 = shelter.pets.create!(sex: :female, name: "Fluffy", approximate_age: 5, description: 'super cute')
+      app1 = Application.create!(name: "Andrew", street: "123 Main St", city: "Denver", state: "CO", zipcode: "80021")
+      PetApplication.create!(application: app1, pet: pet)
+      PetApplication.create!(application: app1, pet: pet2)
+      app1.update(description: "Please", status: "Pending")
+
+      expect(Pet.action_pets).to eq([pet, pet2])
+    end
   end
 end

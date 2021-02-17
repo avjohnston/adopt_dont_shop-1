@@ -18,7 +18,6 @@ class Shelter < ApplicationRecord
   end
 
   def action_pets
-    # pets.find(PetApplication.where(approved: "none").pluck(:pet_id))
     pets.action_pets.where(shelter_id: self.id).distinct
   end
 end

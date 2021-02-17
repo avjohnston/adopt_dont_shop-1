@@ -6,7 +6,9 @@
 <% @shelter.action_pets.each do |pet| %>
   <%= pet.name %>
   <% pet.pet_applications.each do |pet_app| %>
-    <%= link_to "Application #{pet_app.application_id}", "/admin/applications/#{pet_app.application_id}" %>
+    <% if pet_app.application.status == "Pending" %>
+      <%= link_to "Application #{pet_app.application_id}", "/admin/applications/#{pet_app.application_id}" %>
+    <% end %>
   <% end %><br>
 <% end %>
 

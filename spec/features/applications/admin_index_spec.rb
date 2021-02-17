@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Admin application show page' do
+RSpec.describe 'Admin application index page' do
   before :each do
     @application = Application.create(name: 'Andrew', street: '123 Main St', city: 'Denver', state: 'CO', zipcode: '80021', status: 'In Progress')
     @shelter = Shelter.create(name: "Shelter 1", address: "321 Main St", city: "Denver", state: "CO", zip: "80021")
