@@ -21,19 +21,22 @@ RSpec.describe 'Application show page' do
     expect(page).to have_content("Add A Pet To This Application")
     fill_in "pet_name", with: "dog"
     click_on "Search Pet By Name"
-    expect(page).to have_content("Dog")
-    expect(page).to have_content("Male")
-    expect(page).to have_content("4")
-    expect(page).to have_content("Labrador")
-    expect(page).to have_content("True")
+    within ".pet-#{@pet.id}" do
+      expect(page).to have_content("Dog")
+      expect(page).to have_content("Male")
+      expect(page).to have_content("4")
+      expect(page).to have_content("Labrador")
+      expect(page).to have_content("True")
+      click_on "Adopt This Pet"
+    end
 
-    click_on "Adopt This Pet"
     expect(current_path).to eq("/applications/#{@application.id}")
     expect(page).to have_content("Pets: Dog")
-
     expect(page).to have_content("Description")
     fill_in "description", with: "I really want one"
     click_on "Submit Application"
+
+
 
     expect(current_path).to eq("/applications/#{@application.id}")
     expect(page).to have_content("Status: Pending")

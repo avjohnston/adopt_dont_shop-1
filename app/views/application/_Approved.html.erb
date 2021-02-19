@@ -1,11 +1,1 @@
-<p>Applicant: <%= @application.name %><br>
-Address: <%= @application.street %>, <%= @application.city %>, <%= @application.state %> <%= @application.zipcode %><br>
-
-Pets:<br>
-<% @application.pets.each do |pet| %>
-<%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
-<% end %>
-
-
-Status: <%= @application.status %><br>
-Description: <%= @application.description %></p>
+<%= render partial: "pending" %>

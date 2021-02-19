@@ -8,8 +8,10 @@ class ApplicationsController < ApplicationController
     if params[:pet_name]
       @pets = Pet.name_search(params[:pet_name])
       @application = Application.find(params[:id])
+      @pet_applications = @application.pet_applications
     else
       @application = Application.find(params[:id])
+      @pet_applications = @application.pet_applications
     end
   end
 
@@ -19,7 +21,7 @@ class ApplicationsController < ApplicationController
       flash[:success] = "Your Application Has Been Saved!"
       redirect_to "/applications/#{@application.id}"
     else
-      flash[:error] = "Your Application Wasn't Saved!"
+      flash[:error] = "Your Application Wasn't Saved! Please Fill Out All Fields."
       render :new
     end
   end

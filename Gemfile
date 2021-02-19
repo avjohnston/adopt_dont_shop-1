@@ -37,6 +37,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger
   gem 'rspec-rails'
+  gem 'rspec-rainbow'
   gem 'capybara'
   gem 'launchy'
   gem 'pry'

@@ -3,7 +3,7 @@
 <p>Address: <%= @shelter.address %> <%= @shelter.city %>, <%= @shelter.state %>, <%= @shelter.zip %></p>
 
 <h2>Action Required!</h2>
-<% @shelter.action_pets.each do |pet| %>
+<% @action_pets.each do |pet| %>
   <%= pet.name %>
   <% pet.pet_applications.each do |pet_app| %>
     <% if pet_app.application.status == "Pending" %>
@@ -11,7 +11,6 @@
     <% end %>
   <% end %><br>
 <% end %>
-
 
 <h2>Statistics:</h2>
 <p>Average Pet Age: <%= @shelter.average_pet_age %></p>

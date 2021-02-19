@@ -1,10 +1,4 @@
-<p>Applicant: <%= @application.name %><br>
-Address: <%= @application.street %>, <%= @application.city %>, <%= @application.state %> <%= @application.zipcode %><br>
-
-Pets:<br>
-<% @application.pets.each do |pet| %>
-  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
-<% end %>
+<%= render partial: "info" %>
 
 <% if @application.pets.count > 0 %>
   <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
@@ -14,7 +8,7 @@ Pets:<br>
   <% end %>
 <% end %>
 
-Status: <%= @application.status %></p>
+<p>Status: <%= @application.status %></p>
 
 <p>Add A Pet To This Application</p>
 
@@ -25,14 +19,16 @@ Status: <%= @application.status %></p>
 
 <% if params[:pet_name] %>
   <% @pets.each do |pet| %>
-    <% if !pet.pet_applications.any? {|pet_app| pet_app.application_id == @application.id} %>
+  <div class="pet-<%= pet.id %>"
+    <% if pet.pet_applications.none? {|pet_app| pet_app.application_id == @application.id} %>
       <p>Name: <%= pet.name %></p>
-      <%= image_tag "#{pet.image}" %><br>
+      <%= image_tag "#{pet.image}", class: "img-container" %><br>
       <p>Sex: <%= pet.sex.capitalize %></p>
       <p>Approximate Age: <%= pet.approximate_age %></p>
       <p>Descrition: <%= pet.description %></p>
       <p>Adoptable: <%= pet.adoptable.to_s.capitalize %></p>
       <%= button_to  "Adopt This Pet", "/applications/#{@application.id}", method: :post, params: {pet_id: pet.id} %>
     <% end %>
+    </div>
   <% end %>
 <% end %>

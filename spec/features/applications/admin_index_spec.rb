@@ -9,12 +9,13 @@ RSpec.describe 'Admin application index page' do
 
   it 'admin index shows all applications' do
     visit "admin/applications"
-
-    expect(page).to have_link("Andrew")
-    expect(page).to have_content("Address: 123 Main St, Denver, CO 80021")
-    expect(page).to have_content("Status: #{@application.status}")
-    click_link "Andrew"
-    expect(current_path).to eq("/admin/applications/#{@application.id}")
+    within ".app-#{@application.id}" do
+      expect(page).to have_link("Andrew")
+      expect(page).to have_content("Address: 123 Main St, Denver, CO 80021")
+      expect(page).to have_content("Status: #{@application.status}")
+      click_link "Andrew"
+      expect(current_path).to eq("/admin/applications/#{@application.id}")
+    end
   end
 
 end

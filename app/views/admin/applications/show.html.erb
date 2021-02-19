@@ -5,7 +5,7 @@ Status: <%= @application.status %><br>
 Description: <%= @application.description %></p>
 
 Pets:<br>
-<% @application.pet_applications.each do |pet_app| %>
+<% @pet_applications.each do |pet_app| %>
   <% if pet_app.approved == "false" %>
     <p><%= link_to "#{pet_app.pet.name}", "/pets/#{pet_app.pet_id}" %> has been rejected!</p><br>
   <% elsif pet_app.approved == "true" %>

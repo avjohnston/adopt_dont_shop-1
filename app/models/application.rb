@@ -13,4 +13,8 @@ class Application < ApplicationRecord
     self.status = "In Progress"
     self.description = "Write why you would make a good pet parent"
   end
+
+  def partial_naming
+    self.status.gsub(" ", "_").downcase
+  end
 end
