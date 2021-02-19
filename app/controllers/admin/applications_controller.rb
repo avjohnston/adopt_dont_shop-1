@@ -34,7 +34,7 @@ class Admin::ApplicationsController < ApplicationController
   end
 
   def rejected
-    if @pet_apps.any? { |pet_app| pet_app.approved == "false" unless pet_app.pet.adoptable == false } || @pet_apps.none? { |pet_app| pet_app.approved == "none" unless pet_app.pet.adoptable == false }
+    if @pet_apps.any? { |pet_app| pet_app.approved == "false" } && @pet_apps.none? { |pet_app| pet_app.approved == "none" }
       @application.update(status: "Rejected")
     end
   end

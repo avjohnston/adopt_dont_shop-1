@@ -12,6 +12,7 @@ Pets:<br>
     <p><%= link_to "#{pet_app.pet.name}", "/pets/#{pet_app.pet_id}" %> has been approved!</p><br>
   <% elsif pet_app.pet.adoptable == false %>
     <p><%= link_to "#{pet_app.pet.name}", "/pets/#{pet_app.pet_id}" %> has already been approved for adoption!</p>
+    <%= button_to  "Reject This Pet", "/admin/applications/#{@application.id}", method: :patch, params: {rejected: pet_app.pet_id}, local: true %>
   <% else %>
     <%= link_to "#{pet_app.pet.name}", "/pets/#{pet_app.pet_id}" %>
     <%= button_to  "Approve This Pet", "/admin/applications/#{@application.id}", method: :patch, params: {approved: pet_app.pet_id}, local: true %>

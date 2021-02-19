@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'Admin application show page' do
   before :each do
+    Shelter.destroy_all
+    Application.destroy_all
+    Pet.destroy_all
+    PetApplication.destroy_all
     @shelter = Shelter.create(name: "Shelter 1", address: "321 Main St", city: "Denver", state: "CO", zip: "80021")
     @application = Application.create(name: 'Andrew', street: '123 Main St', city: 'Denver', state: 'CO', zipcode: '80021', status: 'In Progress')
     @pet = @shelter.pets.create(name: "Dog", description: "Labrador", approximate_age: 4, sex: :male, adoptable: true)
@@ -34,19 +38,15 @@ RSpec.describe 'Admin application show page' do
   end
 
   it 'changes application status after all pets are approved' do
-    visit "/applications/#{@application.id}"
-    fill_in "pet_name", with: "dog"
-    click_on "Search Pet By Name"
-    click_on "Adopt This Pet"
-    fill_in "description", with: "I really want one"
-    click_on "Submit Application"
-    visit "/admin/applications/#{@application.id}"
+    PetApplication.create!(pet: @pet2, application: @application2)
+    @application2.update(description: "Please", status: "Pending")
 
+    visit "/admin/applications/#{@application2.id}"
     click_on "Approve This Pet"
-    expect(current_path).to eq("/admin/applications/#{@application.id}")
+    expect(current_path).to eq("/admin/applications/#{@application2.id}")
     expect(page).to have_content("Status: Approved")
-    expect(page).to have_content("#{@pet.name} has been approved!")
-    visit "/pets/#{@pet.id}"
+    expect(page).to have_content("#{@pet2.name} has been approved!")
+    visit "/pets/#{@pet2.id}"
     expect(page).to have_content("Adoption Status: false")
   end
 
